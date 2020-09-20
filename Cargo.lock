@@ -748,7 +748,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rs_hello_redis"
+name = "rs_wowo_url"
 version = "0.1.0"
 dependencies = [
  "nanoid",

@@ -1,10 +1,8 @@
 [package]
-name = "rs_hello_redis"
+name = "rs_wowo_url"
 version = "0.1.0"
 authors = ["Wowo10 <wojtekwojtek529@gmail.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 redis = "*"

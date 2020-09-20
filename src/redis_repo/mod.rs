@@ -27,7 +27,7 @@ impl RedisRepo{
         Ok(value)
     }
 
-    fn list(&self) -> redis::RedisResult<Vec<String>>{
+    fn list_keys(&self) -> redis::RedisResult<Vec<String>>{
         let mut connection = self.client.get_connection().unwrap();
 
         let value: Vec<String> = redis::cmd("KEYS").arg("*").query(&mut connection)?;
@@ -35,7 +35,7 @@ impl RedisRepo{
     }
 
     pub fn list_all(&self) -> HashMap<String, String>{
-        let keys = self.list().unwrap();
+        let keys = self.list_keys().unwrap();
 
         let mut map = HashMap::new();
 

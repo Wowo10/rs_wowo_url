@@ -1,24 +1,34 @@
 mod redis_repo;
+use std::collections::VecDeque;
 use std::env;
 
+extern crate nanoid;
+use nanoid::nanoid;
+
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let d = args.last().unwrap();
+    let mut args: VecDeque<String> = env::args().skip(1).collect(); //skipping path arg
 
     println!("{:?}", args);
 
     let repo = redis_repo::RedisRepo::create("redis://127.0.0.1/");
 
-    let list = repo.list_all();
-    // for pair in list {
-    //     println!("{} : {}", pair.0, pair.1)
-    // }
+    match &args.pop_front().unwrap()[..] {
+        "s" | "save" => {
 
-    &list
-        .iter()
-        .for_each(|pair| println!("{} : {}", pair.0, pair.1));
+            let guid = nanoid!();
+            let url = args.pop_front().unwrap();
 
-    // repo.save("dupa2", "15").unwrap();
-    // let value = repo.read("dupa2").unwrap();
-    // println!("{}", value);
+            repo.save(&guid, &url).unwrap();
+
+            println!("Saved as {}", guid);
+            println!("Try -- open <hash>");
+        },
+        "list" | _ => {
+            let list = repo.list_all();
+
+            &list
+                .iter()
+                .for_each(|pair| println!("{} : {}", pair.0, pair.1));
+        }
+    }
 }

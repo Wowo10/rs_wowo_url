@@ -1,5 +1,3 @@
-extern crate redis;
-
 mod redis_repo;
 
 fn main() {
